@@ -1,0 +1,41 @@
+<div class="layout-column align-items-center justify-content-start">
+  <form [formGroup]="noteForm" (ngSubmit)="onSubmitForm()">
+  <section class="layout-row align-items-center justify-content-center mt-30">
+    <input data-test-id="input-note-title" type="text" formControlName="noteTitle" class="large mx-8" placeholder="Note Title" />
+    <input data-test-id="input-note-status" type="text"  formControlName="noteStatus" class="large mx-8" placeholder="Note Status" />
+    <button class="" type="submit" [disabled]="noteForm.invalid" data-test-id="submit-button">Add Note</button>
+  </section>
+  </form>
+
+  <div class="mt-50">
+    <ul class="tabs">
+      <li #tabButton class="tab-item slide-up-fade-in" 
+        [attr.data-test-id]="status.toLowerCase() + 'Button'"
+        [ngClass]="{'active' : selectedTab.toLowerCase() === status.toLowerCase()}" 
+        *ngFor="let status of statusList;"
+        (click)="tabClicked(status)">
+        {{status}}
+      </li>
+    </ul>
+  </div>
+  <div class="card w-40 pt-30 pb-8">
+    <table>
+      <thead>
+        <tr>
+          <th>Title</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody data-test-id="notesList">
+        <tr *ngFor="let note of displayArray">
+          <td>
+            {{note.noteTitle}}
+          </td>
+          <td>
+            {{note.noteStatus}}
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
